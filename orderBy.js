@@ -5,8 +5,8 @@ function orderBy(obj, prop) {
         }
     }
     let cObj = obj.slice();
-    for (let i = (cObj.length) - 1; i >= 0; i--) {
-        for (let j = 0; j < i; j++) {
+    for (let i = 0; i < cObj.length; i++) {
+        for (let j = 0; j < cObj.length - 1; j++) {
             if (!(prop[0] in cObj[j]) || !(prop[0] in cObj[j + 1])) {
                 throw new Error(`У элемента ${j + 1} отсутствует свойство '${prop[0]}'`);
             }
