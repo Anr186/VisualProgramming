@@ -16,6 +16,7 @@ const App = () => {
         
         const booksOblojki = [];
         for(let book of limitBooks){
+          await new Promise((resolve) => setTimeout(resolve, 2000));
           let oblojkiResponse = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${book.isbn}`); 
           const oblojkiData = await oblojkiResponse.json();
           
