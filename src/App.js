@@ -12,7 +12,7 @@ const App = () => {
         const booksResponse = await fetch('https://fakeapi.extendsclass.com/books');
         const booksData = await booksResponse.json();
 
-        const limitBooks = booksData.slice(0, 25);
+        const limitBooks = booksData.slice(0, 20);
         
         const booksOblojki = [];
         for(let book of limitBooks){
