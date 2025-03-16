@@ -42,7 +42,7 @@ const styles = {
   },
   noobl: {
     width: '100%',
-    height: '80%',
+    height: '250px',
     // backgroundColor: '#e3ebe1', 
     display: 'flex',
     alignItems: 'center',
