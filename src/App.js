@@ -43,7 +43,7 @@ const App = () => {
     }, []);
 
     const isNight = currentTime.getHours() >= 18 || currentTime.getHours() < 6;
-    const backgroundColor = isNight ? '#4e32a8' : '#1f7db8';
+    const backgroundColor = isNight ? '#0c031f' : '#1d66cc';
 
     const formatTime = (date) => {
         return date.toLocaleTimeString('ru-RU', {
@@ -58,7 +58,7 @@ const App = () => {
         <div
             style={{
                 textAlign: 'center',
-                padding: '20px',
+                paddingTop: '20px',
                 minHeight: '100vh',
                 margin: 0,
                 backgroundColor: backgroundColor,
@@ -66,7 +66,7 @@ const App = () => {
         >
             {/* <h1>Текущее время: {formatTime(currentTime)}</h1> */}
             {weatherData && uvData ? (
-                <Weather weatherData={weatherData} city={city} location={location} uvData={uvData} />
+                <Weather weatherData={weatherData} city={city} location={location} uvData={uvData} isNight={isNight}/>
             ) : (
                 <p>Загрузка данных о погоде...</p>
             )}
