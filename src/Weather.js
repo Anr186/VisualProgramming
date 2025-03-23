@@ -1,30 +1,27 @@
 import React from 'react';
 
-const Weather = ({ weatherData, city, location, uvData }) => {
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-EN', { weekday: 'long', day: 'numeric' });
+const Weather = ({ weatherData, city, location, uvData, isNight, hour }) => {
+    const startIndex = weatherData.list.findIndex(forecast => {
+        const forecastHour = new Date(forecast.dt_txt).getHours();
+        return forecastHour === hour;
+    });
+
+    const hourlyForecasts = weatherData.list.slice(startIndex, startIndex + 5);
+
+    const formatTime = (hour) => {
+        return `${hour % 12 === 0 ? 12 : hour % 12}:00 ${hour >= 12 ? 'PM' : 'AM'}`;
     };
 
-    const currentDate = formatDate(weatherData.list[0].dt_txt);
-
-    const currentTime = new Date();
-
-    const findCurrentIndex = () => {
-        return weatherData.list.findIndex((forecast) => {
-            const forecastTime = new Date(forecast.dt_txt).getTime();
-            const timeDifference = Math.abs(forecastTime - currentTime.getTime());
-            return timeDifference <= 3600 * 1000; 
-        });
+    const formatDate = (date) => {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
     };
-    const currentIndex = findCurrentIndex();
-    const hourlyForecasts = weatherData.list.slice(currentIndex, currentIndex + 4);
 
     return (
         <div style={styles.container}>
-            <h1 style={styles.currentDate}>{currentDate}</h1>
+            <h1 style={styles.currentDate}>{formatTime(hour)}</h1>
             <h2 style={styles.cityName}>{city}</h2>
-
+        
             <div style={styles.currentWeatherContainer}>
                 <h2 style={styles.temperature}>{Math.round(hourlyForecasts[0].main.temp)}°</h2>
                 <img
@@ -37,11 +34,13 @@ const Weather = ({ weatherData, city, location, uvData }) => {
             <div style={styles.hourlyForecast}>
                 {hourlyForecasts.map((forecast, index) => (
                     <div key={index} style={styles.forecastItem}>
-                        <p style={styles.forecastText}>{index === 0 ? 'Now' : `${new Date(forecast.dt_txt).getHours()}:00`}</p>
+                        <p style={styles.forecastText}>
+                            {index === 0 ? formatTime(hour) : formatTime(new Date(forecast.dt_txt).getHours())}
+                        </p>
                         <img
                             src={`http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`}
                             alt={forecast.weather[0].description}
-                            style={styles.weatherIcon} 
+                            style={styles.weatherIcon}
                         />
                         <p style={styles.forecastText}>{Math.round(forecast.main.temp)}°</p>
                     </div>
@@ -69,11 +68,11 @@ const Weather = ({ weatherData, city, location, uvData }) => {
 
             <div style={styles.dailyForecastContainer}>
                 {weatherData.list
-                    .filter((forecast, index) => (index + 1) % 8 === 0) 
-                    .slice(0, 5) 
+                    .filter((forecast, index) => (index + 1) % 8 === 0)
+                    .slice(0, 5)
                     .map((forecast, index) => (
                         <div key={index} style={styles.dailyForecastItem}>
-                            <p style={styles.dailyForecastDate}>{formatDate(forecast.dt_txt)}</p>
+                            <p style={styles.dailyForecastDate}>{formatDate(new Date(forecast.dt_txt))}</p>
                             <img
                                 src={`http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`}
                                 alt={forecast.weather[0].description}
@@ -91,58 +90,64 @@ const styles = {
     container: {
         fontFamily: 'Arial, sans-serif',
         color: '#ccddf0',
-        padding: '0', 
-        width: '100%', 
-        boxSizing: 'border-box', 
-        minHeight: '100vh', 
+        padding: '0',
+        width: '100%',
+        boxSizing: 'border-box',
+        minHeight: '100vh',
         display: 'flex',
-        flexDirection: 'column', 
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        overflowX: 'hidden',
     },
     cityName: {
         fontSize: '2rem',
-        margin: '5% 10%',
+        margin: '20px 15% 10px 15%',
         textAlign: 'left',
     },
     currentDate: {
-        fontSize: '1.5rem', 
-        fontWeight: '100', 
-        margin: '10px 0', 
-        color: '#ccddf0', 
+        fontSize: '1.5rem',
+        fontWeight: '100',
+        margin: '10px 10%',
+        color: '#ccddf0',
     },
     currentWeatherContainer: {
         display: 'flex',
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        margin: '5% 10%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        margin: '20px 15%',
         overflowX: 'hidden',
     },
     temperature: {
         fontSize: '8rem',
-        fontWeight: '900', 
-        margin: '0', 
+        fontWeight: '900',
+        margin: '0',
     },
     hourlyForecast: {
         display: 'flex',
         justifyContent: 'space-around',
-        margin: '20px 0',
+        margin: '0',
+        padding: '0 10%',
+        boxSizing: 'border-box',
     },
     forecastItem: {
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '0', 
+        gap: '0',
     },
     forecastText: {
-        margin: '0', 
+        margin: '0',
         padding: '0',
-        fontWeight: '900', 
-        fontSize: '1rem', 
+        fontWeight: '900',
+        fontSize: '1rem',
     },
     weatherDetails: {
         display: 'flex',
         justifyContent: 'space-around',
-        margin: '50px 0',
+        margin: '10px 0',
+        padding: '0 10%',
+        boxSizing: 'border-box',
     },
     detailItem: {
         textAlign: 'center',
@@ -153,24 +158,25 @@ const styles = {
         fontWeight: 'bold',
     },
     detailValue: {
-        fontSize: '1.2rem',
+        fontSize: '1.5rem',
         margin: '5px 0',
+        fontWeight: 'bold',
     },
     dailyForecastContainer: {
-        width: '100%', 
+        width: '100%',
         display: 'flex',
-        backgroundColor: '#1d1729', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        padding: '20px 10%', 
-        boxSizing: 'border-box', 
-        marginTop: 'auto', 
+        backgroundColor: '#1d1729',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '20px 10%',
+        boxSizing: 'border-box',
+        marginTop: 'auto',
     },
     dailyForecastItem: {
         display: 'flex',
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        gap: '10px',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '25px',
     },
     dailyForecastDate: {
         fontSize: '1rem',
@@ -178,33 +184,20 @@ const styles = {
         fontWeight: 'bold',
     },
     dailyForecastIcon: {
-        width: '50px', 
-        height: '50px',
+        width: '80px',
+        height: '80px',
     },
     dailyForecastTemp: {
         fontSize: '1.2rem',
         margin: '0',
     },
     weatherIcon: {
-        width: '70px', 
-        height: '70px',
+        width: '100px',
+        height: '100px',
     },
     currentWeatherIcon: {
-        width: '200px', 
-        height: '200px',
-    },
-    '@media (max-width: 440px)': {
-        currentWeatherContainer: {
-            flexDirection: 'column', 
-            alignItems: 'center', 
-        },
-        temperature: {
-            fontSize: '2rem', 
-        },
-        currentWeatherIcon: {
-            width: '100px', 
-            height: '100px',
-        },
+        width: '220px',
+        height: '220px',
     },
 };
 
@@ -217,7 +210,6 @@ const globalStyles = `
         overflow-x: hidden;
     }
 `;
-
 
 const styleSheet = document.createElement('style');
 styleSheet.type = 'text/css';
