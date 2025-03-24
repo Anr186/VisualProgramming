@@ -13,7 +13,7 @@ const Weather = ({ weatherData, city, location, uvData, isNight, hour, isAntarct
     const hourlyForecasts = weatherData.list.slice(startIndex, startIndex + 5);
 
     const formatTime = (hour) => {
-        return ${hour}:00;
+        return `${hour}:00`;
     };
 
     const formatDate = (date) => {
