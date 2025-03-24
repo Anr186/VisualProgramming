@@ -1,6 +1,7 @@
 import React from 'react';
+import Chunga_Changa from "./files/Chunga.mp4";
 
-const Weather = ({ weatherData, city, location, uvData, isNight, hour }) => {
+const Weather = ({ weatherData, city, location, uvData, isNight, hour, isAntarctica }) => {
     // Находим индекс ближайшего часа
     const startIndex = weatherData.list.reduce((closestIndex, forecast, index) => {
         const forecastHour = new Date(forecast.dt_txt).getHours();
@@ -33,7 +34,27 @@ const Weather = ({ weatherData, city, location, uvData, isNight, hour }) => {
                     style={styles.currentWeatherIcon}
                 />
             </div>
+            {isAntarctica && (
+                <div style={{ textAlign: 'center', marginTop: '0px' }}>
+                    <video 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline
+                        style={{ 
+                            width: '50%', 
+                            borderRadius: '20px',
+                            maxHeight: '20%',
+                            minHeight: '50%',
+                            minWidth:'50%',
+                            objectFit: 'cover'
+                        }}
+                    >
+                        <source src={Chunga_Changa} type="video/mp4"/>
+                        </video>
 
+                </div>
+            )}
             <div style={styles.hourlyForecast}>
                 {hourlyForecasts.map((forecast, index) => (
                     <div key={index} style={styles.forecastItem}>

@@ -16,7 +16,7 @@ const App = () => {
         'London',
         'Novosibirsk',
         'Paris',
-        'Kabul',
+        'Антарктида',
         'Berlin',
         'Chelyabinsk',
         'Brasilia',
@@ -144,7 +144,7 @@ const App = () => {
         </div>
 
         {weatherData && uvData ? (
-          <Weather weatherData={weatherData} city={city} location={location} uvData={uvData} isNight={isNight} hour={hour} />
+          <Weather weatherData={weatherData} city={city} location={location} uvData={uvData} isNight={isNight} hour={hour} isAntarctica={city.toLocaleLowerCase()==="антарктида"}/>
         ) : (
           <p style={{ color: '#fff' }}>Загрузка данных о погоде...</p>
         )}
