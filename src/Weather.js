@@ -1,10 +1,13 @@
 import React from 'react';
 
 const Weather = ({ weatherData, city, location, uvData, isNight, hour }) => {
-    const startIndex = weatherData.list.findIndex(forecast => {
+    // Находим индекс ближайшего часа
+    const startIndex = weatherData.list.reduce((closestIndex, forecast, index) => {
         const forecastHour = new Date(forecast.dt_txt).getHours();
-        return forecastHour === hour;
-    });
+        const currentDiff = Math.abs(forecastHour - hour);
+        const closestDiff = Math.abs(new Date(weatherData.list[closestIndex].dt_txt).getHours() - hour);
+        return currentDiff < closestDiff ? index : closestIndex;
+    }, 0);
 
     const hourlyForecasts = weatherData.list.slice(startIndex, startIndex + 5);
 
