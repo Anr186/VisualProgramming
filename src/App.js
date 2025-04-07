@@ -1,75 +1,5 @@
-import React, { useState, useOptimistic, useEffect } from 'react';
-import backImage from './files/back.png';
-
-const DataSet = ({ data, headers, renderHeader, renderCell, onRowSelect, selectedRows }) => {
-  const resHeaders = headers || (data.length > 0 ? Object.keys(data[0]) : []);
-
-  return (
-    <div>
-      <table style={{ 
-        width: '100%', 
-        borderSpacing: 1,
-        fontFamily: 'Arial, sans-serif', 
-        border: '2px solid #ccc', 
-        userSelect: 'none', 
-        backgroundColor: '#f7d7ef',
-        borderRadius: '30px',
-        overflow: 'hidden' 
-      }}>
-        <thead>
-          <tr>
-            <th style={{ width: '30px', borderRight: '1px solid #ddd', backgroundColor: '#ed6bcd'}}></th>
-            {resHeaders.map(header => renderHeader(header))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row) => (
-            <tr 
-              key={row.id} 
-              style={{
-                borderBottom: '1px solid #ddd', 
-                backgroundColor: selectedRows.has(row.id) ? '#96aaf2' : '#f7d7ef', 
-                cursor: 'pointer'
-              }}
-              onClick={(e) => onRowSelect(row.id, e)}
-            >
-              <td
-                style={{
-                  borderRight: '1px solid #ddd', 
-                  width: '30px', 
-                  backgroundColor: selectedRows.has(row.id) ? '#96aaf2' : '#fcbdeb'
-                }}
-              >
-                {selectedRows.has(row.id) ? 'X' : ''}
-              </td>
-              {resHeaders.map((header) => (
-                <td 
-                  key={`${row.id}-${header}`}
-                  style={{
-                    borderRight: '1px solid #ddd',
-                    backgroundColor: selectedRows.has(row.id) ? '#96aaf2' : '#fcbdeb'
-                  }}
-                >
-                  {renderCell(row[header])}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div style={{ 
-        backgroundImage: `url(${backImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '470px',
-        width: '98%',
-        padding: '20px',
-        borderRadius: '30px',
-        marginTop: '20px'
-      }}></div>
-    </div>
-  );
-};
+import React, { useState, useEffect, useOptimistic } from 'react';
+import DataSet from './DataSet';
 
 const CommentsApp = () => {
   const [comments, setComments] = useState([]);
@@ -77,6 +7,7 @@ const CommentsApp = () => {
   const [error, setError] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set());
   const [optimisticComments, setOptimisticComments] = useOptimistic(comments);
+  const [nextId, setNextId] = useState(null); 
   const [newComment, setNewComment] = useState({
     name: '',
     email: '',
@@ -87,10 +18,13 @@ const CommentsApp = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/comments?_limit=20');
+        setLoading(true);
+        const response = await fetch('https://jsonplaceholder.typicode.com/comments');
         if (!response.ok) throw new Error('Failed to fetch comments');
         const data = await response.json();
-        setComments(data);
+        const maxId = data.reduce((max, comment) => Math.max(max, comment.id), 0);
+        setNextId(maxId + 1);
+       setComments(data.slice(0,10)); // Ограничиваем для демонстрации
       } catch (err) {
         setError(err.message);
       } finally {
@@ -129,16 +63,21 @@ const CommentsApp = () => {
   const handleAddComment = async (e) => {
     e.preventDefault();
     
-    const tempId = Math.max(0, ...optimisticComments.map(c => c.id)) + 1;
-    const commentToAdd = {
-      id: tempId,
-      ...newComment,
-      postId: 1
+    const newId = nextId;
+    setNextId(newId + 1);
+    const calculatePostId = (index) => {
+      return Math.floor((index - 1) / 5) + 1;
     };
+    const commentToAdd = {
+      id: newId,
+      ...newComment,
+      postId: calculatePostId(optimisticComments.length + 1) 
+    };
+    setNextId(prev=>prev+1);
+    setOptimisticComments(prev => [...prev, newComment]);
 
     try {
-      // Оптимистичное обновление
-      setOptimisticComments([...optimisticComments, commentToAdd]);
+      
       
       // Реальный запрос
       const response = await fetch('https://jsonplaceholder.typicode.com/comments', {
@@ -153,15 +92,18 @@ const CommentsApp = () => {
       
       const createdComment = await response.json();
       
-      // Обновление с реальным ID
+     
       setComments(prev => [
-        ...prev.filter(c => c.id !== tempId),
+        ...prev.filter(c => c.id !== newId),
         createdComment
       ]);
+      setNextId(prev=>Math.max(prev, createdComment.id + 1));
       
       setNewComment({ name: '', email: '', body: '' });
     } catch (err) {
+      setOptimisticComments(prev => prev.filter(c => c.id !== newId));
       setError(err.message);
+      setNextId(newId);
       setComments(comments);
     }
   };
@@ -203,7 +145,8 @@ const CommentsApp = () => {
   };
 
   // Удаление комментариев
-  const handleDeleteComments = async (ids) => {
+  const handleDeleteComments = async () => {
+    const ids = Array.from(selectedRows);
     const originalComments = optimisticComments;
     
     try {
@@ -230,23 +173,26 @@ const CommentsApp = () => {
   };
 
   // Рендер ячейки с возможностью редактирования
-  const renderCell = (value) => (
-    <div
-      contentEditable
-      suppressContentEditableWarning
-      onBlur={(e) => {
-        const newValue = e.target.textContent;
-        if (newValue !== String(value)) {
-          const rowId = parseInt(e.target.closest('tr').getAttribute('key'));
-          const field = e.target.closest('td').getAttribute('data-field');
-          handleUpdateComment(rowId, { [field]: newValue });
-        }
-      }}
-      style={{ outline: 'none', minHeight: '20px' }}
-    >
-      {value}
-    </div>
-  );
+  const renderCell = (row, header, onCellEdit) => {
+    if (header === 'body') {
+      return (
+        <div
+          contentEditable
+          suppressContentEditableWarning
+          onBlur={(e) => {
+            const newValue = e.target.textContent;
+            if (newValue !== row[header]) {
+              onCellEdit(row.id, { [header]: newValue });
+            }
+          }}
+          style={{ outline: 'none', minHeight: '20px' }}
+        >
+          {row[header]}
+        </div>
+      );
+    }
+    return row[header];
+  };
 
   // Рендер заголовка
   const renderHeader = (header) => (
@@ -331,45 +277,27 @@ const CommentsApp = () => {
 
       <div style={{ marginBottom: '20px' }}>
         <button
-          onClick={() => {
-            if (selectedRows.size > 0) {
-              if (window.confirm(`Delete ${selectedRows.size} selected comment(s)?`)) {
-                handleDeleteComments(Array.from(selectedRows));
-              }
-            } else {
-              alert('Please select comments to delete');
-            }
-          }}
+          onClick={handleDeleteComments}
+          disabled={selectedRows.size === 0}
           style={{
             padding: '10px',
-            backgroundColor: '#ff4d4d',
+            backgroundColor: selectedRows.size > 0 ? '#ff4d4d' : '#ccc',
             color: 'white',
             border: 'none',
             borderRadius: '5px',
-            cursor: 'pointer',
+            cursor: selectedRows.size > 0 ? 'pointer' : 'not-allowed',
             marginRight: '10px'
           }}
         >
-          Delete Selected
+          Delete Selected ({selectedRows.size})
         </button>
-        <span>{optimisticComments.length} comments</span>
+        <span>Total comments: {optimisticComments.length}</span>
       </div>
 
       <DataSet
         data={optimisticComments}
         renderHeader={renderHeader}
-        renderCell={(value, row, header) => (
-          <td 
-            data-field={header}
-            onClick={(e) => {
-              if (e.target === e.currentTarget) {
-                handleRowSelect(row.id, e);
-              }
-            }}
-          >
-            {renderCell(value)}
-          </td>
-        )}
+        renderCell={(row, header) => renderCell(row, header, handleUpdateComment)}
         onRowSelect={handleRowSelect}
         selectedRows={selectedRows}
       />
