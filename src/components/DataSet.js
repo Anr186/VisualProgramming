@@ -1,5 +1,5 @@
 import React from 'react';
-import backImage from './files/back.png';
+import backImage from '../files/back.png';
 
 const DataSet = ({ 
   data, 
@@ -8,7 +8,7 @@ const DataSet = ({
   renderCell, 
   onRowSelect, 
   selectedRows,
-  onCellEdit 
+  onCellEdit
 }) => {
   const resHeaders = headers || (data.length > 0 ? Object.keys(data[0]) : []);
 
