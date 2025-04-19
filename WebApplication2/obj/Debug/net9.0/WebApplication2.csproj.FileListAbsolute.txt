@@ -1,0 +1,67 @@
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\appsettings.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\WebApplication2.staticwebassets.endpoints.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\WebApplication2.exe
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\WebApplication2.deps.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\WebApplication2.runtimeconfig.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\WebApplication2.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\WebApplication2.pdb
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.csproj.AssemblyReference.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.AssemblyInfoInputs.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.AssemblyInfo.cs
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.csproj.CoreCompileInputs.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\scopedcss\bundle\WebApplication2.styles.css
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.WebApplication2.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.WebApplication2.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.build.WebApplication2.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.WebApplication2.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.WebApplication2.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebAppli.0DB3FC1A.Up2Date
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\refint\WebApplication2.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.pdb
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\WebApplication2.genruntimeconfig.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Vs code\WebApplication2\obj\Debug\net9.0\ref\WebApplication2.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\appsettings.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\WebApplication2.staticwebassets.endpoints.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\WebApplication2.exe
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\WebApplication2.deps.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\WebApplication2.runtimeconfig.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\WebApplication2.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\WebApplication2.pdb
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.csproj.AssemblyReference.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.AssemblyInfoInputs.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.AssemblyInfo.cs
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.csproj.CoreCompileInputs.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.sourcelink.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\scopedcss\bundle\WebApplication2.styles.css
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.WebApplication2.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.WebApplication2.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.build.WebApplication2.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.WebApplication2.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.WebApplication2.props
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebAppli.0DB3FC1A.Up2Date
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\refint\WebApplication2.dll
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.pdb
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\WebApplication2.genruntimeconfig.cache
+C:\Users\Anr1\Desktop\Present courses\VisualProgramming\dz10\Final\VisualProgramming\WebApplication2\obj\Debug\net9.0\ref\WebApplication2.dll
