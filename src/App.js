@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useOptimistic } from 'react';
 import DataSet from './DataSet';
 
+const API_URL = 'https://jsonplaceholder.typicode.com/comments';
+
 const CommentsApp = () => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,17 +16,16 @@ const CommentsApp = () => {
     body: ''
   });
 
-  // Загрузка данных
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://jsonplaceholder.typicode.com/comments');
+        const response = await fetch(API_URL);
         if (!response.ok) throw new Error('Failed to fetch comments');
         const data = await response.json();
         const maxId = data.reduce((max, comment) => Math.max(max, comment.id), 0);
         setNextId(maxId + 1);
-       setComments(data.slice(0,10)); // Ограничиваем для демонстрации
+        setComments(data.slice(0,10)); // Ограничиваем для демонстрации
       } catch (err) {
         setError(err.message);
       } finally {
@@ -34,7 +35,6 @@ const CommentsApp = () => {
     fetchData();
   }, []);
 
-  // Обработчик выбора строк
   const handleRowSelect = (rowId, e) => {
     const isCtrlPress = e.ctrlKey || e.metaKey;
     
@@ -59,7 +59,6 @@ const CommentsApp = () => {
     });
   };
 
-  // Добавление комментария
   const handleAddComment = async (e) => {
     e.preventDefault();
     
@@ -77,10 +76,7 @@ const CommentsApp = () => {
     setOptimisticComments(prev => [...prev, newComment]);
 
     try {
-      
-      
-      // Реальный запрос
-      const response = await fetch('https://jsonplaceholder.typicode.com/comments', {
+      const response = await fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify(commentToAdd),
         headers: {
@@ -92,7 +88,6 @@ const CommentsApp = () => {
       
       const createdComment = await response.json();
       
-     
       setComments(prev => [
         ...prev.filter(c => c.id !== newId),
         createdComment
@@ -108,20 +103,17 @@ const CommentsApp = () => {
     }
   };
 
-  // Обновление комментария
   const handleUpdateComment = async (id, updatedFields) => {
     const originalComments = optimisticComments;
     
     try {
-      // Оптимистичное обновление
       setOptimisticComments(prev =>
         prev.map(comment =>
           comment.id === id ? { ...comment, ...updatedFields } : comment
         )
       );
       
-      // Реальный запрос
-      const response = await fetch(`https://jsonplaceholder.typicode.com/comments/${id}`, {
+      const response = await fetch(`${API_URL}/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(updatedFields),
         headers: {
@@ -144,13 +136,11 @@ const CommentsApp = () => {
     }
   };
 
-  // Удаление комментариев
   const handleDeleteComments = async () => {
     const ids = Array.from(selectedRows);
     const originalComments = optimisticComments;
     
     try {
-      // Оптимистичное обновление
       setOptimisticComments(prev =>
         prev.filter(comment => !ids.includes(comment.id))
       );
@@ -158,7 +148,7 @@ const CommentsApp = () => {
       // Реальные запросы
       await Promise.all(
         ids.map(id =>
-          fetch(`https://jsonplaceholder.typicode.com/comments/${id}`, {
+          fetch(`${API_URL}/${id}`, {
             method: 'DELETE',
           })
         )
@@ -172,7 +162,6 @@ const CommentsApp = () => {
     }
   };
 
-  // Рендер ячейки с возможностью редактирования
   const renderCell = (row, header, onCellEdit) => {
     if (header === 'body') {
       return (
@@ -194,7 +183,6 @@ const CommentsApp = () => {
     return row[header];
   };
 
-  // Рендер заголовка
   const renderHeader = (header) => (
     <th 
       key={header} 
