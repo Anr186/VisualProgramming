@@ -2,37 +2,48 @@
 
 namespace WebApplication2.Repositories;
 
-public class CommentRepository : ICommentRepository 
+public class CommentRepository : ICommentRepository
 {
-    private Dictionary<int, Comment> _comments= new Dictionary<int, Comment>(); // хранилище данных в памяти
-    private int _nextId = 1;
-    
-    public IEnumerable<Comment> GetAll()
+    private readonly AppDbContext _db;
+
+    public CommentRepository(AppDbContext db)
     {
-        return _comments.Values;
+        _db = db;
+        _db.Database.EnsureCreated();
     }
 
-    public Comment GetById(int id)
-    {
-        return _comments.GetValueOrDefault(id);
-    }
+    public IEnumerable<Comment> GetAll() => _db.Comments.ToList();
+
+    public Comment GetById(int id) => _db.Comments.Find(id);
+
     public Comment Add(Comment comment)
     {
-        comment.Id = _nextId++;
-        _comments[comment.Id] = comment;
+        _db.Comments.Add(comment);
+        _db.SaveChanges();
         return comment;
     }
+
     public Comment Update(int id, Comment comment)
     {
-        if (!_comments.ContainsKey(id)) return null;
+        var existingComment = _db.Comments.Find(id);
+        if (existingComment == null) return null;
 
-        comment.Id = id; 
-        _comments[id] = comment;
-        return comment;
+        existingComment.Name = comment.Name;
+        existingComment.Email = comment.Email;
+        existingComment.Body = comment.Body;
+        existingComment.PostId = comment.PostId;
+
+        _db.SaveChanges();
+        return existingComment;
     }
 
     public void Delete(int id)
     {
-        _comments.Remove(id);
+        var comment = _db.Comments.Find(id);
+        if (comment != null)
+        {
+            _db.Comments.Remove(comment);
+            _db.SaveChanges();
+        }
     }
 }

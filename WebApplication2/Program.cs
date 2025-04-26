@@ -1,11 +1,18 @@
-using WebApplication2.Model;
+using Microsoft.EntityFrameworkCore;
 using WebApplication2.Repositories;
+using WebApplication2.Model;
 using WebApplication2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<ICommentRepository, CommentRepository>();
-builder.Services.AddSingleton<CommentService>();
+builder.Services.AddDbContext<AppDbContext>(options => 
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
+
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<CommentService>();
+
+// builder.Services.AddSingleton<ICommentRepository, CommentRepository>();
+// builder.Services.AddSingleton<CommentService>();
 
 builder.Services.AddCors(options =>
 {
@@ -20,34 +27,33 @@ var app = builder.Build();
 app.UseCors("AllowReactApp");
 
 
-app.MapGet("/comments", (CommentService service) =>
+app.MapGet("/comments", (CommentService service) => 
 {
-    var comments = service.GetAll();
-    return Results.Ok(comments);
+    return Results.Ok(service.GetAll());
 });
 
-app.MapGet("/comments/{id}", (int id, CommentService service) =>
+app.MapGet("/comments/{id}", (int id, CommentService service) => 
 {
     var comment = service.GetById(id);
     return comment is not null ? Results.Ok(comment) : Results.NotFound();
 });
 
-app.MapPost("/comments", (Comment comment, CommentService service) =>
+app.MapPost("/comments", (Comment comment, CommentService service) => 
 {
     var createdComment = service.Add(comment);
     return Results.Created($"/comments/{createdComment.Id}", createdComment);
 });
 
-app.MapPatch("/comments/{id}", (int id, Comment comment, CommentService service) =>
+app.MapPatch("/comments/{id}", (int id, Comment comment, CommentService service) => 
 {
     var updatedComment = service.Update(id, comment);
     return updatedComment is not null ? Results.Ok(updatedComment) : Results.NotFound();
 });
 
-app.MapDelete("/comments/{id}", (int id, CommentService service) =>
+app.MapDelete("/comments/{id}", (int id, CommentService service) => 
 {
     service.Delete(id);
     return Results.NoContent();
 });
 
-app.Run(); 
+app.Run();

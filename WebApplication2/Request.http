@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ###
-PATCH {{URL}}/comments/1
+PATCH {{URL}}/comments/6
 Content-Type: application/json
 
 {
@@ -31,4 +31,4 @@ Content-Type: application/json
 }
 
 ### 
-DELETE {{URL}}/comments/1
+DELETE {{URL}}/comments/5

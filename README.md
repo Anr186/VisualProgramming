@@ -13,3 +13,12 @@
 
 # .NET
 https://dotnet.microsoft.com/ru-ru/download
+
+# Install Terminal
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+
+## Структура базы данных
+
+![Таблица Comments в PostgreSQL](/img/Table.png)
