@@ -21,4 +21,10 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 
 ## Структура базы данных
 
-![Таблица Comments в PostgreSQL](/img/Table.png)
+![Таблица Comments](/img/Table.png)
+
+![Свойства Comments](/img/Table1.png)
+
+![Таблица Logs](/img/Table2.png)
+
+![Свойства Logs](/img/Table3.png)
