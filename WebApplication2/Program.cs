@@ -60,13 +60,15 @@ app.MapDelete("/comments/{id}", (int id, CommentService service, ILogger<Program
     return Results.NoContent();
 });
 
-app.MapGet("/logs", (AppDbContext dbContext, string? level, string? search) =>
+app.MapGet("/logs", (AppDbContext dbContext, string? level, string? search, string? method) =>
 {
     var query = dbContext.Logs.AsQueryable();
 
     if (!string.IsNullOrEmpty(level))
         query = query.Where(l => l.Level == level);
-    
+        
+    if (!string.IsNullOrEmpty(method))
+        query = query.Where(m => m.MethodHttp == method);
     if (!string.IsNullOrEmpty(search))
         query = query.Where(l => l.Message.Contains(search) || (l.MethodHttp != null && l.MethodHttp.Contains(search)) || (l.Exception != null && l.Exception.Contains(search)));
 
