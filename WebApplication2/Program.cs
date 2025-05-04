@@ -2,8 +2,15 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication2.Repositories;
 using WebApplication2.Model;
 using WebApplication2.Services;
+using WebApplication2.Logging; 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
@@ -11,49 +18,61 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<CommentService>();
 
-// builder.Services.AddSingleton<ICommentRepository, CommentRepository>();
-// builder.Services.AddSingleton<CommentService>();
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddProvider(new DatabaseLoggerProvider(builder.Services.BuildServiceProvider()));
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowReactApp",
-        builder => builder
-            .WithOrigins("http://localhost:3000")
-            .AllowAnyMethod()
-            .AllowAnyHeader());
-});
 var app = builder.Build();
 
-app.UseCors("AllowReactApp");
+app.UseCors();
 
-
-app.MapGet("/comments", (CommentService service) => 
+app.MapGet("/comments", (CommentService service, ILogger<Program> logger) => 
 {
+    logger.LogInformation("GET /comments");
     return Results.Ok(service.GetAll());
 });
 
-app.MapGet("/comments/{id}", (int id, CommentService service) => 
+app.MapGet("/comments/{id}", (int id, CommentService service, ILogger<Program> logger) => 
 {
+    logger.LogInformation("GET /comments/{Id}", id);
     var comment = service.GetById(id);
     return comment is not null ? Results.Ok(comment) : Results.NotFound();
 });
 
-app.MapPost("/comments", (Comment comment, CommentService service) => 
+app.MapPost("/comments", (Comment comment, CommentService service, ILogger<Program> logger) => 
 {
     var createdComment = service.Add(comment);
+    logger.LogInformation("POST /comments - ID: {Id}", createdComment.Id);
     return Results.Created($"/comments/{createdComment.Id}", createdComment);
 });
 
-app.MapPatch("/comments/{id}", (int id, Comment comment, CommentService service) => 
+app.MapPatch("/comments/{id}", (int id, Comment comment, CommentService service, ILogger<Program> logger) => 
 {
+    logger.LogInformation("PATCH /comments/{Id}", id);
     var updatedComment = service.Update(id, comment);
     return updatedComment is not null ? Results.Ok(updatedComment) : Results.NotFound();
 });
 
-app.MapDelete("/comments/{id}", (int id, CommentService service) => 
+app.MapDelete("/comments/{id}", (int id, CommentService service, ILogger<Program> logger) => 
 {
+    logger.LogInformation("DELETE /comments/{Id}", id);
     service.Delete(id);
     return Results.NoContent();
 });
+
+app.MapGet("/logs", (AppDbContext dbContext, string? level, string? search) =>
+{
+    var query = dbContext.Logs.AsQueryable();
+
+    if (!string.IsNullOrEmpty(level))
+        query = query.Where(l => l.Level == level);
+    
+    if (!string.IsNullOrEmpty(search))
+        query = query.Where(l => l.Message.Contains(search) || (l.MethodHttp != null && l.MethodHttp.Contains(search)) || (l.Exception != null && l.Exception.Contains(search)));
+
+    return query.OrderByDescending(l => l.Timestamp).ToList();
+});
+
+app.MapGet("/", () => "Рабочие эндпоинты: /comments, /logs");
 
 app.Run();
