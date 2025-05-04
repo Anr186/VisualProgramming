@@ -28,3 +28,13 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 ![Таблица Logs](/img/Table2.png)
 
 ![Свойства Logs](/img/Table3.png)
+
+
+### Таблица
+ALTER TABLE "Logs" 
+ALTER COLUMN "Id" SET NOT NULL,
+ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY,
+ALTER COLUMN "Timestamp" SET NOT NULL,
+ALTER COLUMN "Timestamp" SET DEFAULT CURRENT_TIMESTAMP,
+ALTER COLUMN "Level" SET NOT NULL,
+ALTER COLUMN "Message" SET NOT NULL;
