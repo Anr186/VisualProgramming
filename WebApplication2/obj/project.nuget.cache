@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eRY2yDKfudc=",
+  "dgSpecHash": "aGRZ0dPyDls=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Anr1\\Desktop\\Present courses\\VisualProgramming\\dz11\\backend\\VisualProgramming\\WebApplication2\\WebApplication2.csproj",
+  "projectFilePath": "C:\\Users\\Anr1\\Desktop\\Present courses\\VisualProgramming\\dz12\\VisualProgramming\\WebApplication2\\WebApplication2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Anr1\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Anr1\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.4\\microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
